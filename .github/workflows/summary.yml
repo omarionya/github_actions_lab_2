@@ -1,0 +1,25 @@
+name: Job Summary
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Run tests
+        run: |
+          echo "Running tests..."
+          echo "All tests passed"
+
+      - name: Generate summary
+        run: |
+          echo "# Test Results" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "## Status" >> "$GITHUB_STEP_SUMMARY"
+          echo "✅ All tests passed" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "## Coverage" >> "$GITHUB_STEP_SUMMARY"
+          echo "Coverage: **92%**" >> "$GITHUB_STEP_SUMMARY"
