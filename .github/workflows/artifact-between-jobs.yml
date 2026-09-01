@@ -1,0 +1,38 @@
+name: Artifact Between Jobs
+
+on:
+  workflow_dispatch:
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Create build
+        run: |
+          mkdir -p build
+          echo "Application version 1.0.0" > build/version.txt
+
+      - name: Upload build
+        uses: actions/upload-artifact@v4
+        with:
+          name: application-build
+          path: build/
+
+
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download build
+        uses: actions/download-artifact@v5
+        with:
+          name: application-build
+          path: build/
+
+      - name: Display artifact
+        run: |
+          ls -la build
+          cat build/version.txt
